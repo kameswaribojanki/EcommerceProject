@@ -1,0 +1,21 @@
+<div class="login">
+<div class="login-form">
+    <h2>Login Form</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div class="my-3">
+            <label>Email:</label>
+            <input type="text" class="form-control" formControlName="email">
+            <div *ngIf="emailError" class="text-danger">{{emailError}}</div>
+        </div>
+        <div class="my-3">
+            <label>Password:</label>
+            <input type="password" class="form-control" formControlName="password">
+            <span *ngIf="password?.invalid && password?.touched" class="text-danger">password is invalid</span>
+            <!-- <div *ngIf="passwordError">{{passwordError}}</div> -->
+        </div>
+        <div class="my-3 button-div">
+            <button class="btn btn-primary btn-sm">Login</button>
+        </div>
+    </form>
+    </div>
+</div>

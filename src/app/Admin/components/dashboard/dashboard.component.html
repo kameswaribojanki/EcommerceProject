@@ -1,0 +1,43 @@
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-2 col-lg-2 col-xl-2 bg-light col-sm-12">
+      <ul class="nav flex-column px-3">
+        <li class="nav-item fs-4 d-flex align-items-center">
+          <i class="fa-solid fa-user"></i>
+          <a class="nav-link" [routerLink]="['dashboardData']">Dashboard</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <i class="fa-solid fa-sitemap"></i>
+          <a class="nav-link" [routerLink]="['categories']">Categories</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <i class="fa-solid fa-sitemap"></i>
+          <a class="nav-link" [routerLink]="['subcategories']">SubCategories</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <i class="fa-brands fa-product-hunt"></i>
+          <a class="nav-link" [routerLink]="['products']">Products</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <i class="fa-solid fa-users"></i>
+          <a class="nav-link" href="#">Users</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <i class="fa-brands fa-first-order"></i>
+          <a class="nav-link" href="#">Orders</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <i class="fa-solid fa-credit-card"></i>
+          <a class="nav-link" href="#">Payments</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <i class="fa-solid fa-power-off text-danger"></i>
+          <a class="nav-link text-danger" href="#">Logout</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-10 col-lg-10 col-xl-10 c0l-sm-12">
+        <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

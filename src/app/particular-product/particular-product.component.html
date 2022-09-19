@@ -1,0 +1,24 @@
+<div class="row">
+        
+    <div class="col-md-4">
+        <div class="d-flex justify-content-center align-items-center">
+            <img src="{{product.image}}">
+        </div>
+        <div class="d-flex justify-content-center align-items-center my-2">
+            <button class="btn btn-warning" (click)="addToCart()">ADD TO CART</button>
+            <button class="btn btn-danger mx-3">BUY NOW</button>
+        </div>
+    </div>
+    <div class="col-md-8 d-flex justify-content-center align-items-top pt-5">
+        <div>
+            <h3>{{product.brand}} {{product.productName}} {{product.description}} ({{product.color}})</h3>
+            <h4><i class="fa-solid fa-indian-rupee-sign"></i> {{product.price}}</h4>
+            <!-- <h4>Color: <span>{{product.color}}</span></h4> -->
+            <!-- <h4>Brand: <span>{{product.brand}}</span></h4> -->
+            <h4>Size: <span>{{product.size}}</span></h4>
+            <h4 class="text-success">{{product.rating}}<i class="fa-solid fa-star fs-5"></i></h4>
+            <h4>Status: <span>{{product.status}}</span></h4>
+            <!-- <h4>Description: <span>{{product.description}}</span></h4> -->
+        </div>
+    </div>
+</div>

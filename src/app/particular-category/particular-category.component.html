@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-3 bg-light">
+        <div>{{category.categoryName}}<i class="fa-solid fa-angle-down" (click)="onArrowClick()"></i></div>
+        
+        <div *ngFor="let sub of subCategoryName">
+            <div [ngStyle]="{'display':'none'}">{{sub}}</div>
+            <div *ngIf="arrowClick" [ngStyle]="{'display':'visible'}" class="ps-3">{{sub}}</div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <img src="{{category.image}}">
+    </div>
+</div>

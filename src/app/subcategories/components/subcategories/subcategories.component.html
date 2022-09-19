@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-12 ps-5 pt-3">
+        <h2>SubCategories Data</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="text-end">
+            <a [routerLink]="['add']" class="btn btn-primary btn-sm">Add SubCategory</a>
+        </div>
+        <div class="table-responsive-sm">
+        <table class="table table-bordered table-striped my-3">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th>subCategoyName</th>
+                    <th>categoryName</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let subCategory of subCategories" class="text-center">
+                    <td>{{subCategory.subCategoryName}}</td>
+                    
+                    <td>{{subCategory.categoryName}}</td>
+                    <td>{{subCategory.type}}</td>
+                    <td>{{subCategory.status}}</td>
+                    <td>{{subCategory.date}}</td>
+                    <td>{{subCategory.description}}</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm mx-3" [routerLink]="[subCategory.id,'edit']">Edit</a>
+                        <button class="btn btn-danger btn-sm mx-3" (click)="onDeleteSubCategory(subCategory.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <div class="col-md-6 mx-auto">
+        <router-outlet></router-outlet>
+    </div>
+</div>

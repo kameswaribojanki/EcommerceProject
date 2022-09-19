@@ -1,0 +1,38 @@
+<div class="ps-3 pt-3">
+    <h2>Cart Details</h2>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div *ngIf="details; then thenBlock; else elseBlock"></div>
+        <ng-template #thenBlock>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ProductImage</th>
+                        <th>ProductName</th>
+                        <th>ProductDescription</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products">
+                        <td><img src="{{product.image}}"></td>
+                        <td>{{product.productName}}</td>
+                        <td>{{product.description}}</td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-end">
+                <button class="btn btn-primary" (click)="onRemoveAllClick()">Remove All</button>
+            </div>
+        </ng-template>
+        <ng-template #elseBlock>
+            <div class="d-flex align-items-center justify-content-center p-5">
+                <div class="box">
+                    your cart is empty, <a [routerLink]="['']">please add product</a>
+                </div> 
+            </div>
+        </ng-template>       
+    </div>
+</div>

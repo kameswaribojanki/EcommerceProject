@@ -1,0 +1,18 @@
+.register-form{
+    padding: 30px;
+    margin: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 30%;
+    background-color: white;
+}
+.button-div{
+   text-align: center;
+}
+button{
+    width: 100%;
+}
+.register{
+    padding: 50px 0px;
+    background-color: aliceblue;
+ }

@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <h3 class="text-center">Edit Product</h3>
+        <form [formGroup]="productForm" (ngSubmit)="onEditProduct()">
+            <div class="my-3">
+                <label>productName</label>
+                <input type="text" class="form-control" formControlName="productName">
+            </div>
+            <div class="my-3">
+                <label>Brand</label>
+                <input type="text" class="form-control" formControlName="brand">
+            </div>
+            <div class="my-3">
+                <label>Rating</label>
+                <input type="text" class="form-control" formControlName="rating">
+            </div>
+            <div class="my-3">
+                <label>Price</label>
+                <input type="text" class="form-control" formControlName="price">
+            </div>
+            <div class="my-3">
+                <label>Color</label>
+                <input type="text" class="form-control" formControlName="color">
+            </div>
+            <div class="my-3">
+                <label>Size</label>
+                <input type="text" class="form-control" formControlName="size">
+            </div>
+            <div class="my-3">
+                <label>Category</label>
+                <select class="form-select" formControlName="category" #category (change)="onCategoryChange(category.value)">
+                    <option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</option>
+                </select>
+            </div>
+            <div class="my-3">
+                <label>SubCategory</label>
+                <select class="form-select" formControlName="subCategory">
+                    <option *ngFor="let subCategory of subCategories" [value]="subCategory.id">{{subCategory.subCategoryName}}</option>
+                </select>
+            </div>
+            <div class="my-3">
+                <label>ImageUrl</label>
+                <input type="text" class="form-control" formControlName="image">
+            </div>
+            <div class="my-3">
+                <label>Status</label>
+                <select class="form-select" formControlName="status">
+                    <option value="Active">Active</option>
+                    <option value="InActive">InActive</option>
+                </select>
+            </div>
+            <div class="my-3">
+                <label>Date</label>
+                <input type="text" class="form-control" formControlName="date">
+            </div>
+            <div class="my-3">
+                <label>description</label>
+                <input type="text" class="form-control" formControlName="description">
+            </div>
+            <div class="my-3">
+                <button class="btn btn-primary btn-sm">Edit Product</button>
+                <button class="btn btn-sm btn-dark mx-2" (click)="backToProducts()">back to Products</button>
+            </div>
+        </form>
+    </div>
+</div>
