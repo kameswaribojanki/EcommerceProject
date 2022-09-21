@@ -33,6 +33,14 @@
                 </select>
             </div>
             <div class="my-3">
+                <label>Type</label>
+                <select class="form-select" formControlName="type">
+                    <option value="Mens">Mens</option>
+                    <option value="Womens">Womens</option>
+                    <option value="Kids">Kids</option>
+                </select>
+            </div>
+            <div class="my-3">
                 <label>SubCategory</label>
                 <select class="form-select" formControlName="subCategory">
                     <option *ngFor="let subCategory of subCategories" [value]="subCategory.id">{{subCategory.subCategoryName}}</option>

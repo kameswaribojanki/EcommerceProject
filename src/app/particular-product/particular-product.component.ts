@@ -10,7 +10,7 @@ import { ProductService } from '../products/services/product.service';
 })
 export class ParticularProductComponent implements OnInit {
   product!:IProduct;
-  count=0;
+  
   // i=0;
   constructor(private productService:ProductService, private route:ActivatedRoute, private router:Router) { }
   id=this.route.snapshot.params['id'];
@@ -20,6 +20,7 @@ export class ParticularProductComponent implements OnInit {
     })
   }
   addToCart(){
+    this.productService.count++;
     this.productService.products.push(this.product);
     let products=JSON.stringify(this.productService.products);
     window.localStorage.setItem("cartDetails",products);

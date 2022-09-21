@@ -30,5 +30,7 @@ export class CartComponent implements OnInit {
   onRemoveAllClick(){
     window.localStorage.removeItem("cartDetails");
   }
-
+  deleteFromCart(product:IProduct){
+    let index=this.details.indexOf(product);
+  }
 }

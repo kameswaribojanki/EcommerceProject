@@ -1,13 +1,43 @@
 <div class="row">
-    <div class="col-md-3 bg-light">
-        <div>{{category.categoryName}}<i class="fa-solid fa-angle-down" (click)="onArrowClick()"></i></div>
-        
-        <div *ngFor="let sub of subCategoryName">
-            <div [ngStyle]="{'display':'none'}">{{sub}}</div>
-            <div *ngIf="arrowClick" [ngStyle]="{'display':'visible'}" class="ps-3">{{sub}}</div>
+    <div class="col-md-3 bg-light p-2 text-center">
+        <div>
+            <button class="btn btn-success" (click)="showAllProducts()">All Products</button>
+        </div>
+        <div class="my-3">
+            <button class="btn btn-warning btn-sm mx-1" (click)="onMensClick()">Mens</button>
+            <button class="btn btn-warning btn-sm mx-1" (click)="onWomensClick()">Womens</button>
+            <button class="btn btn-warning btn-sm mx-1" (click)="onKidsClick()">Kids</button>
+        </div>
+        <div class="my-3">
+            <select class="form-select" #category (change)="onCategoryChange($event,category.value)">
+                <option [value]="">select category</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</option>
+            </select>
+        </div>
+        <div class="my-3">
+            <select class="form-select" (change)="onSubCategoryChange($event)">
+                <option [value]="">select subcategory</option>
+                <option *ngFor="let subCategory of subCategories" [value]="subCategory.id">{{subCategory.subCategoryName}}</option>
+            </select>
+        </div>
+        <div class="my-3">
+            <select class="form-select"  (change)="onBrandChange($event)">
+                <option [value]="">select brand</option>
+                <option *ngFor="let product of products" [value]="product.brand">{{product.brand}}</option>
+            </select>
         </div>
     </div>
+    
     <div class="col-md-9">
-        <img src="{{category.image}}">
+        <div class="row">
+            <div class="product-card ">
+                <div class="card  col-lg-4" *ngFor="let product of filteredProducts" style="width: 18rem;">
+                    <img class="card-img-top" src="{{product.image}}" alt="Card image cap" (click)="onProductImageClicked(product.id)">
+                    <div class="card-body">
+                    <p class="card-text">{{product.productName}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </div>

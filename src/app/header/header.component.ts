@@ -12,21 +12,23 @@ export class HeaderComponent implements OnInit, OnChanges{
   isLogIn=false;
   filteredString:string="";
   count=0;
-  
   constructor(private authService:AuthService, private router:Router,private productService:ProductService) {
     
    }
   ngOnChanges(): void {
     console.log("hello");
+    
   }
 
   ngOnInit(): void {
+    this.count=this.productService.count;
     // this.productService.filterString=this.filteredString;
     this.isLogIn=this.authService.userDetails?true:false;
     this.authService.logInEvent.subscribe(data=>{
       this.isLogIn=data;
     })
     console.log(this.filteredString);
+    console.log(this.count);
   }
   onLogOut(){
     this.authService.logOut();

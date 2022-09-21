@@ -13,12 +13,18 @@ import { ProductService } from '../products/services/product.service';
 export class HomeComponent implements OnInit {
   constructor(private productService:ProductService, private router:Router, private categoryService:CategoryService) { }
   products:IProduct[]=[];
+  mensProducts:IProduct[]=[];
+  womensProducts:IProduct[]=[];
+  kidsProducts:IProduct[]=[];
   categories:ICategory[]=[];
   filterString:string="";
   ngOnInit(): void {
     this.filterString=this.productService.filterString;
     this.productService.getProducts().subscribe(data=>{
       this.products=data;
+      this.mensProducts=data.filter(f=>f.type==="Mens");
+      this.womensProducts=data.filter(f=>f.type==="Womens");
+      this.kidsProducts=data.filter(f=>f.type==="Kids");
     })
     this.categoryService.getCategories().subscribe(data=>{
       this.categories=data;

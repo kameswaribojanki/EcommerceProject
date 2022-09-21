@@ -19,7 +19,7 @@
                         <td><img src="{{product.image}}"></td>
                         <td>{{product.productName}}</td>
                         <td>{{product.description}}</td>
-                        <td><i class="fa-solid fa-trash"></i></td>
+                        <td><i class="fa-solid fa-trash" (click)="deleteFromCart(product)"></i></td>
                     </tr>
                 </tbody>
             </table>

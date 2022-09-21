@@ -9,7 +9,7 @@ export class ProductService{
     baseUrl=`https://ecommerce-6e1da-default-rtdb.firebaseio.com/`;
     productChangeEvent=new EventEmitter<boolean>;
     filterString:string="";
-    count=0;
+    count:number=0;
     products:IProduct[]=[];
     setProductChange(msg:boolean){
       this.productChangeEvent.emit(msg);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICategory } from '../categories/models/ICategory';
 import { CategoryService } from '../categories/services/category.service';
 import { IProduct } from '../products/models/IProduct';
@@ -13,44 +13,69 @@ import { SubCategoryService } from '../subcategories/services/subcategory.servic
   styleUrls: ['./particular-category.component.css']
 })
 export class ParticularCategoryComponent implements OnInit {
-  category!:ICategory;
-  subCategories:ISubCategory[]=[];
-  subCategoryName:string[]=[];
-  subCategoryId:string[]=[];
-  arrowClick:boolean=false;
+  categories:ICategory[]=[];
   products:IProduct[]=[];
-  constructor(private categoryService:CategoryService, private route:ActivatedRoute, private subCategoryService:SubCategoryService, private productService:ProductService) { }
+  showAll:boolean=false;
+  filteredProducts:IProduct[]=[];
+  selectedCategoryId='';
+  selectedSubCategoryId='';
+  selectedBrandId='';
+  subCategories:ISubCategory[]=[];
+  
+  constructor(private categoryService:CategoryService,private router:Router, private route:ActivatedRoute, private subCategoryService:SubCategoryService, private productService:ProductService) { }
   id=this.route.snapshot.params['id'];
   ngOnInit(): void {
+    this.subCategoryService.getSubCategories().subscribe(data=>{
+      this.subCategories=data;
+    })
+    this.categoryService.getCategories().subscribe(data=>{
+      this.categories=data;
+    })
     this.productService.getProducts().subscribe(data=>{
       this.products=data;
-    })
-    this.categoryService.getCategoryById(this.id).subscribe(data=>{
-      this.category=data;
-      this.subCategoryService.getSubCategories().subscribe(data=>{
-        this.subCategories=data;
-        for(let i=0;i<data.length;i++){
-          if(this.id===data[i].categoryName){
-            //console.log(data[i].subCategoryName);
-            this.subCategoryName.push(data[i].subCategoryName);
-          }
-        }
-      })
+      this.filteredProducts=data;
     })
   }
-  onArrowClick(){
-    this.arrowClick=!this.arrowClick;
-    
-      for(let i=0;i<this.products.length;i++){
-        for(let j=0;j<this.subCategoryId.length;j++){
-          console.log("HELLO")
-          if(this.products[i].subCategory===this.subCategoryId[j]){
-
-            console.log(this.products[i].subCategory);
-          }
-        }
-      }
-    
+  showAllProducts(){
+    this.filteredProducts=this.products;
   }
-  
+  onCategoryChange(event:Event,categoryId: string){
+    this.selectedCategoryId=(event.target as HTMLSelectElement).value;
+    this.productService.getProducts().subscribe(data=>{
+      this.filteredProducts=data.filter((p)=>{return p.category==this.selectedCategoryId})
+    })
+    this.subCategoryService.getSubCategories().subscribe((data: ISubCategory[])=>{
+      this.subCategories = data.filter((p) => p.categoryName == categoryId);
+    });
+  }
+  onSubCategoryChange(event:Event){
+    this.selectedSubCategoryId=(event.target as HTMLSelectElement).value;
+    this.productService.getProducts().subscribe(data=>{
+      this.filteredProducts=data.filter((p)=>{return p.subCategory==this.selectedSubCategoryId})
+    })
+  }
+  onBrandChange(event:Event){
+    this.selectedBrandId=(event.target as HTMLSelectElement).value;
+    this.productService.getProducts().subscribe(data=>{
+      this.filteredProducts=data.filter((p)=>{return p.brand==this.selectedBrandId})
+    })
+  }
+  onMensClick(){
+    this.productService.getProducts().subscribe(data=>{
+      this.filteredProducts=data.filter((p)=>{return p.type=="Mens"})
+    })
+  }
+  onWomensClick(){
+    this.productService.getProducts().subscribe(data=>{
+      this.filteredProducts=data.filter((p)=>{return p.type=="Womens"})
+    })
+  }
+  onKidsClick(){
+    this.productService.getProducts().subscribe(data=>{
+      this.filteredProducts=data.filter((p)=>{return p.type=="Kids"})
+    })
+  }
+  onProductImageClicked(id:any){
+    this.router.navigate([id,"product"]);
+  }
 }

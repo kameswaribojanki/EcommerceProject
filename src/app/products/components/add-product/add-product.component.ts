@@ -20,6 +20,7 @@ export class AddProductComponent implements OnInit {
     price:new FormControl(""),
     color:new FormControl(""),
     size:new FormControl(""),
+    type:new FormControl(""),
     category:new FormControl(""),
     image:new FormControl(""),
     description:new FormControl(""),

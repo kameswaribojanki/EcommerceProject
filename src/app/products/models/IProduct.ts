@@ -10,6 +10,7 @@ export interface IProduct{
     description:string;
     status:string;
     date:string;
+    type:string;
     category:string;
     subCategory:string;
 }
