@@ -26,6 +26,15 @@ import { ParticularProductComponent } from './particular-product/particular-prod
 import { ParticularCategoryComponent } from './particular-category/particular-category.component';
 import { FilterPipe } from './Pipes/filter.pipe';
 import { CartComponent } from './cart/cart.component';
+import { SearchPipePipe } from './search-pipe.pipe';
+import { UsersComponent } from './users/components/users/users.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { WishListComponent } from './wish-list/wish-list.component';
+import { PaymentsComponent } from './payments/payments.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { OrdersComponent } from './orders/orders.component';
+import { MyPaymentsComponent } from './my-payments/my-payments.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +59,15 @@ import { CartComponent } from './cart/cart.component';
     ParticularCategoryComponent,
     FilterPipe,
     CartComponent,
+    SearchPipePipe,
+    UsersComponent,
+    UserProfileComponent,
+    UserDetailsComponent,
+    WishListComponent,
+    PaymentsComponent,
+    MyOrdersComponent,
+    OrdersComponent,
+    MyPaymentsComponent,
   ],
   imports: [
     BrowserModule,

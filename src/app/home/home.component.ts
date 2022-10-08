@@ -4,6 +4,8 @@ import { ICategory } from '../categories/models/ICategory';
 import { CategoryService } from '../categories/services/category.service';
 import { IProduct } from '../products/models/IProduct';
 import { ProductService } from '../products/services/product.service';
+import { SearchService } from '../search.service';
+import { SubCategoryService } from '../subcategories/services/subcategory.service';
 
 @Component({
   selector: 'app-home',
@@ -11,15 +13,14 @@ import { ProductService } from '../products/services/product.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(private productService:ProductService, private router:Router, private categoryService:CategoryService) { }
+  constructor(private productService:ProductService, private router:Router, private categoryService:CategoryService, private searchService:SearchService, private subCategoryService:SubCategoryService) { }
   products:IProduct[]=[];
   mensProducts:IProduct[]=[];
   womensProducts:IProduct[]=[];
   kidsProducts:IProduct[]=[];
   categories:ICategory[]=[];
-  filterString:string="";
+  searchText:string="";
   ngOnInit(): void {
-    this.filterString=this.productService.filterString;
     this.productService.getProducts().subscribe(data=>{
       this.products=data;
       this.mensProducts=data.filter(f=>f.type==="Mens");
@@ -29,7 +30,9 @@ export class HomeComponent implements OnInit {
     this.categoryService.getCategories().subscribe(data=>{
       this.categories=data;
     })
-    console.log(this.filterString);
+    this.searchService.searchProduct.subscribe((data:string)=>{
+      this.searchText=data;
+    })
   }
   onProductImageClicked(id:any){
     this.router.navigate([id,"product"]);

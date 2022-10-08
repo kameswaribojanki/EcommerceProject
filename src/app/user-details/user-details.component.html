@@ -1,0 +1,56 @@
+<div class="container-fluid p-5">
+    <div class="row">
+        <h2>My Details</h2>
+        <form [formGroup]="userDetailsForm" (ngSubmit)="onUpdateUserDetails()">
+            <div class="col-md-12 user-form">
+                <div class="my-3 col-md-5">
+                    <label>UserName</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="my-3 col-md-5">
+                    <label>Surname</label>
+                    <input type="text" class="form-control" formControlName="surname">
+                </div>
+                <div class="my-3 col-md-5">
+                    <label>EmailId</label>
+                    <input type="text" class="form-control" formControlName="email">
+                </div>
+                <div class="my-3 col-md-5">
+                    <label>MobileNunber</label>
+                    <input type="text" class="form-control" formControlName="phone">
+                </div>
+                <div class="my-3 col-md-5">
+                    <label>State</label>
+                    <input type="text" class="form-control" formControlName="state">
+                </div>
+                <div class="my-3 col-md-5">
+                    <label>City</label>
+                    <input type="text" class="form-control" formControlName="city">
+                </div>
+                <div class="my-3 col-md-5">
+                    <label>PinCode</label>
+                    <input type="text" class="form-control" formControlName="pincode">
+                </div>
+                <div class="my-3 col-md-5">
+                    <label>Gender:</label><br>
+                    <input type="radio" id="css" name="gender" value="Male" formControlName="gender">
+                    <label for="css">Male</label>
+                    <input class="ms-5" type="radio" id="css" name="gender" value="Female" formControlName="gender">
+                    <label for="css">Female</label><br>
+                </div>
+                <div class="my-3 col-md-5">
+                    <label>DateOfBirth</label>
+                    <input type="date" class="form-control" formControlName="dob">
+                </div>
+                <div class="my-3 col-md-5">
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" rows="4" cols="50" formControlName="address">
+                    </textarea>
+                </div>
+                <div class="my-3 col-md-5">
+                    <button class="btn btn-primary btn-sm">Update Details</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

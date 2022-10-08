@@ -20,19 +20,19 @@
         </li>
         <li class="nav-item d-flex align-items-center">
           <i class="fa-solid fa-users"></i>
-          <a class="nav-link" href="#">Users</a>
+          <a class="nav-link" [routerLink]="['users']">Users</a>
         </li>
         <li class="nav-item d-flex align-items-center">
           <i class="fa-brands fa-first-order"></i>
-          <a class="nav-link" href="#">Orders</a>
+          <a class="nav-link" [routerLink]="['orders']">Orders</a>
         </li>
         <li class="nav-item d-flex align-items-center">
           <i class="fa-solid fa-credit-card"></i>
           <a class="nav-link" href="#">Payments</a>
         </li>
-        <li class="nav-item d-flex align-items-center">
+        <li class="nav-item d-flex align-items-center" (click)="onLogOut()">
           <i class="fa-solid fa-power-off text-danger"></i>
-          <a class="nav-link text-danger" href="#">Logout</a>
+          <a class="nav-link text-danger">Logout</a>
         </li>
       </ul>
     </div>

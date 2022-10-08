@@ -2,20 +2,20 @@ import { HttpClient } from "@angular/common/http";
 import { IProduct } from "../models/IProduct";
 import { map, Observable } from "rxjs";
 import { EventEmitter, Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
 @Injectable({
     providedIn:"root"
 })
 export class ProductService{
-    baseUrl=`https://ecommerce-6e1da-default-rtdb.firebaseio.com/`;
+    // baseUrl=`https://ecommerce-6e1da-default-rtdb.firebaseio.com/`;
+    baseUrl=environment.firebaseUrl;
     productChangeEvent=new EventEmitter<boolean>;
     filterString:string="";
-    count:number=0;
     products:IProduct[]=[];
     setProductChange(msg:boolean){
       this.productChangeEvent.emit(msg);
     }
     constructor(private http:HttpClient){
-
     }
     addProduct(product:IProduct):Observable<any>{
         return this.http.post<{name:string}>(`${this.baseUrl}products.json`, product);

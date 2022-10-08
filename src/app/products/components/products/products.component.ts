@@ -10,10 +10,8 @@ import { ProductService } from '../../services/product.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-
   products:IProduct[]=[];
   constructor(private productService:ProductService, private categoryService:CategoryService, private subCategoryService:SubCategoryService) { }
-
   ngOnInit(): void {
     this.getProducts();
     this.productService.productChangeEvent.subscribe(data=>{
@@ -22,25 +20,6 @@ export class ProductsComponent implements OnInit {
   }
   getProducts() {
     this.products=[];
-    // this.categoryService.getCategories().subscribe(categories=>{
-    //   this.productService.getProducts().subscribe(products=>{
-    //     this.subCategoryService.getSubCategories().subscribe(subCategories=>{
-    //       for(let product of products){
-    //         for(let category of categories){
-    //           for(let subCategory of subCategories){
-    //             if(category.id===product.category){
-    //               this.products.push({...product, category:category.categoryName});
-    //             }
-    //             if(subCategory.id===product.subCategory){
-    //               this.products.push({...product, subCategory:subCategory.subCategoryName});
-    //             }
-    //           }
-    //         }
-    //       }
-    //     })
-    //   })
-    // })
-
     this.categoryService.getCategories().subscribe(categories=>{
       this.subCategoryService.getSubCategories().subscribe(subCategories=>{
         this.productService.getProducts().subscribe(products=>{
@@ -54,8 +33,6 @@ export class ProductsComponent implements OnInit {
         })
       })
     })
-
-
   }
   onDeleteProduct(id:any){
       if(confirm("are you sure you want to delete category")){

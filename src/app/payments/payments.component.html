@@ -1,0 +1,203 @@
+<div class="container-fluid">
+    <div class="row p-5">
+        <div class="col-md-7">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <span>1</span> LOGIN
+                        <div>+{{phoneNumber}}</div>
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      PhoneNumber:{{phoneNumber}}
+                      <div>
+                        <a routerLink="/">Logout and login with another account</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <span>2</span> DELIVERY ADDRESS
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <p>Please fill the address below to deliver the product</p>
+                      <textarea name="" id="" cols="50" rows="5" [(ngModel)]="address"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <span>3</span> ORDER SUMMARY
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <div *ngFor="let product of cartDetails" class="d-flex align-items-center">
+                        <div class="p-3">
+                            <div>
+                                <img src="{{product.image}}">
+                            </div>
+                            <div class="py-3">
+                                <button type="button" class="btn btn-sm incbtn" (click)="decrementCount(product)"><i class="fa-solid fa-minus"></i></button>
+                                    <span>{{product.quantity}}</span>
+                                <button type="button" class="btn btn-sm incbtn" (click)="incrementCount(product)"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="px-5">
+                            <p>{{product.name}} {{product.description}}</p>
+                            <p><i class="fa-solid fa-indian-rupee-sign"></i>{{product.price}}</p>
+                            <div (click)="deleteFromCart(product.id)" class="text-danger"><i class="fa-solid fa-trash"></i>Remove</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <span>4</span> PAYMENT OPTIONS
+                      </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <div class="my-3">
+                            <label>
+                                <input type="radio" name="payment" value="upi" (change)="onPaymentModeChange($event)">UPI
+                            </label>
+                            <ng-container *ngIf="selectedType=='upi'">
+                                <div class="ps-5">
+                                    <p class="my-3">Choose an Option</p>
+                                    <div class="my-3">
+                                        <label>
+                                            <input type="radio" name="payment1" value="hdfc">Phone Pe
+                                        </label>
+                                        <div class="mx-5">
+                                            <button class="btn btn-secondary btn-sm">CONTINUE</button>
+                                        </div>
+                                    </div>
+                                    <div class="my-3">
+                                        <label>
+                                            <input type="radio" name="payment1" value="hdfc">Your UPI ID
+                                        </label>
+                                        <div class="ps-5 d-flex align-items-center my-3">
+                                            <div>
+                                                <input type="text" placeholder="Enter UPI ID">
+                                            </div>
+                                            <div class="mx-5">
+                                                <button class="btn btn-secondary btn-sm">PAY AMOUNT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="my-3">
+                            <label>
+                                <input type="radio" name="payment" value="credit" (change)="onPaymentModeChange($event)">CREDIT/ DEBIT/ ATM CARD
+                            </label>
+                            <ng-container *ngIf="selectedType=='credit'">
+                                <div class="ps-5">
+                                    <div class="my-3">
+                                        <input type="text" placeholder="Enter Card Number">
+                                    </div>
+                                    <div class="my-3 d-flex">
+                                        <div>
+                                            <p>Valid thrue:</p>
+                                            <input type="date">
+                                        </div>
+                                        <div class="mx-5">
+                                            <p>CVV:</p>
+                                            <input type="text" placeholder="cvv">
+                                        </div>
+                                    </div>
+                                    <div class="my-3">
+                                        <button class="btn btn-secondary btn-sm">PAY AMOUNT</button>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="my-3">
+                            <label>
+                                <input type="radio" name="payment" value="netbank" (change)="onPaymentModeChange($event)">NET BANKING
+                            </label>
+                            <ng-container *ngIf="selectedType=='netbank'">
+                                <div>
+                                    <label class="px-5 my-3">
+                                        <input type="radio" name="netbanking" value="cashondelivery">HDFC
+                                    </label>
+                                    <label class="px-5 my-3">
+                                        <input type="radio" name="netbanking" value="cashondelivery">ICICI
+                                    </label>
+                                    <label class="px-5 my-3">
+                                        <input type="radio" name="netbanking" value="cashondelivery">SBI
+                                    </label>
+                                    <label class="px-5 my-3">
+                                        <input type="radio" name="netbanking" value="cashondelivery">AXIS
+                                    </label>
+                                    <label class="px-5 my-3">
+                                        <input type="radio" name="netbanking" value="cashondelivery">KOTAK MAHINDRA BANK
+                                    </label>
+                                    <div class="my-3 px-5">
+                                        <button class="btn btn-secondary btn-sm">PAY AMOUNT</button>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="my-3">
+                            <label>
+                                <input type="radio" name="payment" value="cashondelivery" (change)="onPaymentModeChange($event)">CASH ON DELIVERY
+                            </label>
+                            <ng-container *ngIf="selectedType=='cashondelivery'">
+                                <div class="my-3 px-5">
+                                    <button class="btn btn-secondary btn-sm">CONFIRM ORDER</button>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="my-3">
+                            <label>
+                                <input type="radio" name="payment" value="emi" (change)="onPaymentModeChange($event)">EMI(Easy Insallment Net Application)
+                            </label>
+                            <ng-container *ngIf="selectedType=='emi'">
+                                <div class="my-3 px-5">
+                                    <button class="btn btn-secondary btn-sm">CONFIRM ORDER</button>
+                                </div>
+                            </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+        </div>
+        <div class="col-md-3 cart-price-details set-position mx-5">
+            <div class="border-bottom p-3">
+                <h4>PRICE DETAILS</h4>
+            </div>
+            <div class="px-3 d-flex align-items-center justify-content-between">
+                <p>Price of ({{cartDetails.length}} items)</p>
+                <p><i class="fa-solid fa-indian-rupee-sign"></i>{{grandTotal}}</p>
+            </div>
+            <div class="px-3 d-flex align-items-center justify-content-between">
+                <p>Delivery Charges</p>
+                <p><i class="fa-solid fa-indian-rupee-sign"></i>0</p>
+            </div>
+            <div class="border-bottom px-3 d-flex align-items-center justify-content-between">
+                <p>Handling Fee for 1 item</p>
+                <p><i class="fa-solid fa-indian-rupee-sign"></i>10</p>
+            </div>
+            <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
+                <h4>Amount Payable</h4>
+                <h4><i class="fa-solid fa-indian-rupee-sign"></i>{{grandTotal}}</h4>
+            </div>
+            <div class="p-0">
+                <button class="btn btn-warning w-100 oderBtn" (click)="onPayTotalAmount()">Pay <i class="fa-solid fa-indian-rupee-sign"></i>{{grandTotal}}</button>
+            </div>
+        </div>
+    </div>
+</div>

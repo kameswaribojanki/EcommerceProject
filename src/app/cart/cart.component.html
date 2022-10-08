@@ -1,38 +1,54 @@
-<div class="ps-3 pt-3">
-    <h2>Cart Details</h2>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div *ngIf="details; then thenBlock; else elseBlock"></div>
-        <ng-template #thenBlock>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ProductImage</th>
-                        <th>ProductName</th>
-                        <th>ProductDescription</th>
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let product of products">
-                        <td><img src="{{product.image}}"></td>
-                        <td>{{product.productName}}</td>
-                        <td>{{product.description}}</td>
-                        <td><i class="fa-solid fa-trash" (click)="deleteFromCart(product)"></i></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="text-end">
+<div class="container-fluid p-5">
+    <div class="row" *ngIf="cartDetails.length!=0">
+        <div class="col-md-7 cart-details mx-5">
+            <div class="border-bottom p-3">
+                <h2>Cart({{cartDetails.length}} items)</h2>
+            </div>
+            <div *ngFor="let product of cartDetails" class="d-flex border-bottom align-items-center">
+                <div class="p-3">
+                    <div>
+                        <img src="{{product.image}}">
+                    </div>
+                    <div class="py-3">
+                        <button type="button" class="btn btn-sm incbtn" (click)="decrementCount(product)"><i class="fa-solid fa-minus"></i></button>
+                            <span>{{product.quantity}}</span>
+                        <button type="button" class="btn btn-sm incbtn" (click)="incrementCount(product)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="px-5">
+                    <p>{{product.name}} {{product.description}}</p>
+                    <p><i class="fa-solid fa-indian-rupee-sign"></i>{{product.price}}</p>
+                    <div (click)="deleteFromCart(product.id)" class="text-danger"><i class="fa-solid fa-trash"></i>Remove</div>
+                </div>
+            </div>
+            <div class="text-end my-3 pe-5">   
                 <button class="btn btn-primary" (click)="onRemoveAllClick()">Remove All</button>
             </div>
-        </ng-template>
-        <ng-template #elseBlock>
-            <div class="d-flex align-items-center justify-content-center p-5">
-                <div class="box">
-                    your cart is empty, <a [routerLink]="['']">please add product</a>
-                </div> 
+        </div>
+        <div class="col-md-3 cart-price-details set-position">
+            <div class="border-bottom p-3">
+                <h4>PRICE DETAILS</h4>
             </div>
-        </ng-template>       
+            <div class="border-bottom p-3 d-flex align-items-center justify-content-between">
+                <p>Price of ({{cartDetails.length}} items)</p>
+                <p><i class="fa-solid fa-indian-rupee-sign"></i>{{grandTotal}}</p>
+            </div>
+            <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
+                <h4>Total Amount</h4>
+                <h4><i class="fa-solid fa-indian-rupee-sign"></i>{{grandTotal}}</h4>
+            </div>
+            <div class="p-0">
+                <button class="btn btn-warning w-100 oderBtn" (click)="onPlaceOrderClicked()">Place Order</button>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="cartDetails.length==0">
+        <div class="d-flex align-items-center justify-content-center p-5">
+            <div class="box">
+                your cart is empty
+                <div>add items to it now</div>
+                <a [routerLink]="['']" class="btn btn-primary btn-sm">shop now</a>
+            </div> 
+        </div>
     </div>
 </div>

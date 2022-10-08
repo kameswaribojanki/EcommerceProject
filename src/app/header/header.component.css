@@ -3,4 +3,9 @@ img{
     width: 100px;
     height: 80px;
 }
+span{
+    border: 1px solid white;
+    border-radius: 50%;
+    padding-right: 6px;
+}
 

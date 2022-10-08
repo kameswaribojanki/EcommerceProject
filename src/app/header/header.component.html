@@ -1,24 +1,34 @@
+<div class="container-fluid sticky-top">
 <div class="row bg-dark pt-3 row-md-display-flex align-items-center">
     <div class="col-sm-12  col-md-4 col-lg-4 col-xl-4 text-center d-flex justify-content-center align-items-center">
-        <img src="https://i.pinimg.com/736x/6d/22/e2/6d22e2b6bf2738a1f229f4794a4772b1.jpg">
+        <img src="https://i.pinimg.com/736x/6d/22/e2/6d22e2b6bf2738a1f229f4794a4772b1.jpg" (click)="onLogoClick()">
         <h1 class="text-white">Fashions</h1>
     </div>
     <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-3">
-        <input type="text" class="w-100" placeholder="Search for products, brands and more" class="form-control" [(ngModel)]="filteredString">
+        <input type="text" class="w-100" placeholder="Search for products, brands and more" class="form-control" [(ngModel)]="filteredString" (input)="onInputChange($event)">
     </div> 
     <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 d-flex justify-content-around p-3">
         <div *ngIf="!isLogIn" class="text-white d-flex align-items-center">
             <i class="fa-regular fa-user p-2"></i>
             <a class="text-white text-decoration-none" [routerLink]="['/login']">Login</a>/<a class="text-white text-decoration-none" [routerLink]="['/register']">Register</a>
         </div>
-        <div class="d-flex align-items-center">
-            <div *ngIf="isLogIn">
-                <button class="btn btn-danger btn-sm" (click)="onLogOut()">logout</button>
+        <div *ngIf="isLogIn">
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-regular fa-user p-2 fs-5"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" [routerLink]="['/profile']">User Profile</a></li>
+                <li><a class="dropdown-item text-danger" (click)="onLogOut()"><i class="fa-solid fa-power-off"></i> Logout</a></li>
+                </ul>
             </div>
+        </div>
+        <div class="d-flex align-items-center">
             <div class="text-white" (click)="onCartClick()">
                 <a class="ps-3 nav-link text-white">cart<i class="fa-solid fa-cart-shopping text-white fs-5"></i><span class="ps-2">{{count}}</span></a>  
             </div>
         </div>
     </div>
+</div>
 </div>
 

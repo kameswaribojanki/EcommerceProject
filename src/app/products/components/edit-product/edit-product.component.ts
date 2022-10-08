@@ -29,6 +29,7 @@ export class EditProductComponent implements OnInit {
     image:new FormControl(""),
     description:new FormControl(""),
     status:new FormControl(""),
+    quantity:new FormControl(""),
     date:new FormControl(""),
  subCategory:new FormControl("")
   })
@@ -58,6 +59,7 @@ export class EditProductComponent implements OnInit {
         category:data.category,
         image:data.image,
         status:data.status,
+        quantity:data.quantity,
         date:data.date,
         description:data.description,
         subCategory:data.subCategory

@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 col-lg-2 col-xl-2 bg-light col-sm-12 p-3">
+          <ul class="nav flex-column px-3">
+            <li class="nav-item fs-4 d-flex align-items-center text-primary">
+              <i class="fa-solid fa-user fs-3"></i>
+              <a class="nav-link" [routerLink]="['userData']">{{name}}</a>
+            </li>
+            <li class="nav-item fs-5 d-flex align-items-center text-primary">
+                <a class="nav-link" [routerLink]="['userDetails']">MyDetails</a>
+            </li>
+            <li class="nav-item fs-5 d-flex align-items-center text-primary">
+                <a class="nav-link" [routerLink]="['userOrders']">MyOrders</a>
+            </li>
+            <li class="nav-item fs-5 d-flex align-items-center text-primary">
+                <a class="nav-link" [routerLink]="['userPayments']">MyPayments</a>
+            </li>
+            <li class="nav-item fs-5 d-flex align-items-center text-primary">
+                <a class="nav-link" [routerLink]="['userWishlist']">MyWishlist</a>
+            </li>
+            <li class="nav-item d-flex fs-5 align-items-center" (click)="onLogOut()">
+                <i class="fa-solid fa-power-off text-danger"></i>
+                <a class="nav-link text-danger">Logout</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-10 col-lg-10 col-xl-10 c0l-sm-12">
+            <router-outlet></router-outlet>
+        </div>
+      </div>
+</div>

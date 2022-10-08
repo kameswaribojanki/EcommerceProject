@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/categories/services/category.service';
 import { ProductService } from 'src/app/products/services/product.service';
+import { UserService } from 'src/app/users/services/user.service';
 
 @Component({
   selector: 'app-dashboard-data',
@@ -10,7 +11,8 @@ import { ProductService } from 'src/app/products/services/product.service';
 export class DashboardDataComponent implements OnInit {
   pcount=0;
   ccount=0;
-  constructor(private productService:ProductService, private categoryService:CategoryService) { }
+  ucount=0;
+  constructor(private productService:ProductService, private categoryService:CategoryService, private userService:UserService) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe(data=>{
@@ -21,6 +23,11 @@ export class DashboardDataComponent implements OnInit {
     this.categoryService.getCategories().subscribe(data=>{
       for(let i=0;i<data.length;i++){
         this.ccount++
+      }
+    })
+    this.userService.getUsers().subscribe(data=>{
+      for(let i=0;i<data.length;i++){
+        this.ucount++
       }
     })
   }

@@ -1,0 +1,25 @@
+.payments{
+    border: 1px solid lightgrey;
+    padding: 0px;
+}
+.cart-price-details{
+    border: 1px solid lightgray;
+    padding: 0px;
+    height: 250px;
+}
+.oderBtn{
+    border-radius: 0px;
+}
+.set-position{
+    position: sticky;
+    top: 100px;
+}
+span{
+    background-color: white;
+    padding: 5px;
+    margin: 5px;
+}
+img{
+    width: 80px;
+    height: 80px;
+}

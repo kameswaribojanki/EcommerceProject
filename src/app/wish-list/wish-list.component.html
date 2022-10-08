@@ -1,0 +1,36 @@
+<div class="container-fluid p-5">
+    <div class="row" *ngIf="wishList.length!=0">
+        <div class="col-md-10 cart-details mx-5">
+            <div class="border-bottom p-3">
+                <h2>My Wishlist({{wishList.length}})</h2>
+            </div>
+            <div *ngFor="let product of wishList" class="d-flex border-bottom align-items-center justify-content-between">
+                <div class="p-5">
+                    <div>
+                        <img src="{{product.image}}">
+                    </div>
+                </div>
+                <div class="p-5">
+                    <p>{{product.productName}} {{product.description}}</p>
+                    <p><i class="fa-solid fa-indian-rupee-sign"></i>{{product.price}}</p>
+                </div>
+                <div class="p-5">
+                    <i class="fa-solid fa-trash" (click)="deleteFromWishList(product.id)"></i>
+                </div>
+            </div>
+            <div class="text-end my-3 pe-5">   
+                <button class="btn btn-primary" (click)="onRemoveAllClick()">Remove All</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngIf="wishList.length==0">
+            <div class="d-flex align-items-center justify-content-center p-5">
+                <div class="box">
+                    your wishList is empty
+                    <a [routerLink]="['']">add items to it now</a>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>

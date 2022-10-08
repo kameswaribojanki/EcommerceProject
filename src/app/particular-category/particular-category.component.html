@@ -10,7 +10,7 @@
         </div>
         <div class="my-3">
             <select class="form-select" #category (change)="onCategoryChange($event,category.value)">
-                <option [value]="">select category</option>
+                <option [value]="">{{categoryName}}</option>
                 <option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</option>
             </select>
         </div>
@@ -31,13 +31,18 @@
     <div class="col-md-9">
         <div class="row">
             <div class="product-card ">
-                <div class="card  col-lg-4" *ngFor="let product of filteredProducts" style="width: 18rem;">
-                    <img class="card-img-top" src="{{product.image}}" alt="Card image cap" (click)="onProductImageClicked(product.id)">
-                    <div class="card-body">
-                    <p class="card-text">{{product.productName}}</p>
+                <div class="card  col-lg-4" *ngFor="let product of filteredProducts | searchPipe:searchText" style="width: 18rem;">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                        <p class="card-text">{{product.productName}}</p>
+                        </div>
+                        <div>
+                        <i class="fa-solid fa-heart fs-2" [ngStyle]="{'color':heartColor}" (click)="onLikeClicked(product.id)"></i>
+                        </div>
+                    </div>
+                    <img class="card-img-top" src="{{product.image}}" alt="Card image cap" (click)="onProductImageClicked(product.id)">  
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </div>

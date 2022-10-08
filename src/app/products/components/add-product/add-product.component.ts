@@ -25,6 +25,7 @@ export class AddProductComponent implements OnInit {
     image:new FormControl(""),
     description:new FormControl(""),
     status:new FormControl(""),
+    quantity:new FormControl(""),
     date:new FormControl(""),
     subCategory:new FormControl({value:"",disabled:true})
   })

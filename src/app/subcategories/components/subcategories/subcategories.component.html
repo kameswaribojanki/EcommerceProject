@@ -8,7 +8,7 @@
         <div class="text-end">
             <a [routerLink]="['add']" class="btn btn-primary btn-sm">Add SubCategory</a>
         </div>
-        <div class="table-responsive-sm">
+        <div class="table-responsive">
         <table class="table table-bordered table-striped my-3">
             <thead class="thead-dark">
                 <tr class="text-center">
@@ -30,7 +30,7 @@
                     <td>{{subCategory.status}}</td>
                     <td>{{subCategory.date}}</td>
                     <td>{{subCategory.description}}</td>
-                    <td>
+                    <td class="d-flex">
                         <a class="btn btn-warning btn-sm mx-3" [routerLink]="[subCategory.id,'edit']">Edit</a>
                         <button class="btn btn-danger btn-sm mx-3" (click)="onDeleteSubCategory(subCategory.id)">Delete</button>
                     </td>

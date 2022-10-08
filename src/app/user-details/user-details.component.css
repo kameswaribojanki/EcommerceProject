@@ -1,0 +1,13 @@
+.user-form{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.user-form div{
+    padding: 5px 10px;
+}
+.row{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+}

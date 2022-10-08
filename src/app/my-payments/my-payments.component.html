@@ -1,0 +1,31 @@
+<div class="container-fluid p-5">
+    <div class="row" *ngIf="payments.length!=0">
+        <div class="col-md-10 payment-details mx-5">
+            <div class="border-bottom p-3">
+                <h2>My Payments({{payments.length}})</h2>
+            </div>
+            <div *ngFor="let payment of payments" class="d-flex border-bottom align-items-center justify-content-between">
+                <div class="p-5">
+                    <div>
+                        <p>{{payment.paymentType}}</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <p>{{payment.dateOfPayment}}</p>
+                </div>
+                <div class="p-5">
+                    <p><i class="fa-solid fa-indian-rupee-sign"></i>{{payment.amount}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngIf="payments.length==0">
+            <div class="d-flex align-items-center justify-content-center p-5">
+                <div class="box">
+                    my orders are empty
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>

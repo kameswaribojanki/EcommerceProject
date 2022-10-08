@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 import { ICategory } from "../models/ICategory";
 
 @Injectable({
@@ -8,7 +9,8 @@ import { ICategory } from "../models/ICategory";
 })
 export class CategoryService{
     categoryChangeFlag=false;
-    baseUrl=`https://ecommerce-6e1da-default-rtdb.firebaseio.com/`;
+    // baseUrl=`https://ecommerce-6e1da-default-rtdb.firebaseio.com/`;
+    baseUrl=environment.firebaseUrl;
     categoryChangeEvent=new EventEmitter<boolean>;
     setCategoryChange(msg:boolean){
       this.categoryChangeEvent.emit(msg);

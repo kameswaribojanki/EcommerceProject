@@ -1,5 +1,5 @@
 export interface IProduct{
-    id?:string;
+    id?:any;
     image:string;
     productName:string;
     brand:string;
@@ -13,4 +13,5 @@ export interface IProduct{
     type:string;
     category:string;
     subCategory:string;
+    quantity:number;
 }

@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-12 ps-5 pt-3">
+        <h2>Users Data</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <!-- <div class="text-end">
+            <a [routerLink]="['add']" class="btn btn-primary btn-sm">Add Category</a>
+        </div> -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped my-3">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <!-- <th>Id</th> -->
+                        <th>UserName</th>
+                        <th>MobileNumber</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <!-- <th>Date</th>
+                        <th>Actions</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users" class="text-center">
+                        <!-- <td>{{category.id}}</td> -->
+                        <td>{{user.name}}</td>
+                        <td>{{user.phone}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.password}}</td>
+                        <!-- <td><img [src]="category.image" alt="image" width="70px" height="70px"></td>
+                        <td class="d-flex"><a class="btn btn-warning btn-sm mx-3" [routerLink]="[category.id,'edit']">Edit</a>
+                            <button class="btn btn-danger btn-sm mx-3" (click)="onDeleteCategory(category.id)">Delete</button></td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <router-outlet></router-outlet>
+    </div>
+</div>
