@@ -22,4 +22,15 @@ export class PaymentService {
           return formattedPayments;
     }))
   }
+  getAllPayments():Observable<IUserPayment[]>{
+    return this.http.get<{[id:string]:IUserPayment}[]>(`${this.baseUrl}Payments/.json`).pipe(map(payments=>{
+        let formattedPayments:IUserPayment[]=[];
+        for (let id in payments) {
+          for(let payment in payments[id]){
+            formattedPayments.push({ payment, ...payments[id][payment] } as IUserPayment);
+          }
+        }
+        return formattedPayments;
+    }))
+  }
 }

@@ -27,3 +27,6 @@ img{
     position: sticky;
     top: 100px;
 }
+.cursor{
+    cursor: pointer;
+}

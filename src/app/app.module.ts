@@ -35,6 +35,7 @@ import { PaymentsComponent } from './payments/payments.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { OrdersComponent } from './orders/orders.component';
 import { MyPaymentsComponent } from './my-payments/my-payments.component';
+import { AllPaymentsComponent } from './all-payments/all-payments.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { MyPaymentsComponent } from './my-payments/my-payments.component';
     MyOrdersComponent,
     OrdersComponent,
     MyPaymentsComponent,
+    AllPaymentsComponent,
   ],
   imports: [
     BrowserModule,

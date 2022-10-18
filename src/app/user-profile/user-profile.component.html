@@ -18,13 +18,13 @@
             <li class="nav-item fs-5 d-flex align-items-center text-primary">
                 <a class="nav-link" [routerLink]="['userWishlist']">MyWishlist</a>
             </li>
-            <li class="nav-item d-flex fs-5 align-items-center" (click)="onLogOut()">
+            <li class="nav-item d-flex fs-5 align-items-center cursor" (click)="onLogOut()">
                 <i class="fa-solid fa-power-off text-danger"></i>
                 <a class="nav-link text-danger">Logout</a>
             </li>
           </ul>
         </div>
-        <div class="col-md-10 col-lg-10 col-xl-10 c0l-sm-12">
+        <div class="col-md-10 col-lg-10 col-xl-10 col-sm-12 col-xs-12">
             <router-outlet></router-outlet>
         </div>
       </div>

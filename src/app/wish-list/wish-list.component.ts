@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IUser } from '../Auth/models/IUser';
 import { IProduct } from '../products/models/IProduct';
 import { WishListService } from '../wishList.service';
@@ -11,7 +12,7 @@ import { WishListService } from '../wishList.service';
 export class WishListComponent implements OnInit {
   wishList:IProduct[]=[];
   userId:string='';
-  constructor(private wishListService:WishListService) { }
+  constructor(private wishListService:WishListService, private router:Router) { }
 
   ngOnInit(): void {
     let userDetailsJSON=localStorage.getItem("userDetails");
@@ -27,14 +28,21 @@ export class WishListComponent implements OnInit {
       this.wishList=data;
     })
   }
-  deleteFromWishList(product:any){
-    this.wishListService.deleteWishList(product,this.userId).subscribe(data=>{
-      this.wishListService.setWishListChange(true);
-    })
+  deleteFromWishList(id:any){
+    if(confirm("are you sure to delete product from wishlist")){
+      this.wishListService.deleteWishList(id,this.userId).subscribe(data=>{
+        this.wishListService.setWishListChange(true);
+      })
+    }
   }
   onRemoveAllClick(){
-    this.wishListService.deleteAll().subscribe(data=>{
-      this.wishListService.setWishListChange(true);
-    })
+    if(confirm("are you sure to delete all products from wishlist")){
+      this.wishListService.deleteAll().subscribe(data=>{
+        this.wishListService.setWishListChange(true);
+      })
+    }
+  }
+  onWishListImageClicked(id:any){
+    this.router.navigate([id,"product"])
   }
 }

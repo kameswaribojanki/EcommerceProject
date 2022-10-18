@@ -8,4 +8,7 @@ span{
     border-radius: 50%;
     padding-right: 6px;
 }
+.cursor{
+    cursor: pointer;
+}
 

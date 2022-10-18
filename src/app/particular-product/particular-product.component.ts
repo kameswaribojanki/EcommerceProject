@@ -14,6 +14,9 @@ import { ProductService } from '../products/services/product.service';
 export class ParticularProductComponent implements OnInit {
   product!:IProduct;
   starCount:number[]=[];
+  isDisabled:boolean=true;
+  isSizeError:boolean=true;
+  size:string="";
   constructor(private productService:ProductService, private route:ActivatedRoute, private router:Router, private cartService:CartService) { }
   id=this.route.snapshot.params['id'];
   ngOnInit(): void {
@@ -25,26 +28,68 @@ export class ParticularProductComponent implements OnInit {
     })
   }
   addToCart(){
+    let userDetailsJSON=localStorage.getItem("userDetails");
+    let userDetails!: IUser;
+    if (userDetailsJSON) userDetails = JSON.parse(userDetailsJSON);
     let cart:ICart={
       productId:this.id,
       name:this.product.productName,
       price:this.product.price,
       brand:this.product.brand,
+      size:this.size,
       quantity:this.product.quantity,
       description:this.product.description,
       image:this.product.image
     }
-    // this.productService.getProductById(this.id).subscribe(data=>{
-    //   this.product=data;
-    // })
-    let userDetailsJSON=localStorage.getItem("userDetails");
-    let userDetails!: IUser;
-    if (userDetailsJSON) userDetails = JSON.parse(userDetailsJSON);
-    this.cartService.addProductToCart(cart,userDetails.userId).subscribe(product=>{
-    })
-    console.log(cart);
+
+    this.cartService.getProducts(userDetails.userId).subscribe(data=>{
+      if(data.length==0){
+        this.cartService.addProductToCart(cart,userDetails.userId).subscribe(product=>{
+        })
+      }
+      else{
+        console.log(data);
+        console.log(cart.productId)
+         const a =  data.filter(data=>{return data.productId==cart.productId})
+         console.log(a);
+         if(a.length!=0)
+         {
+          const b=a.filter(data=>{return data.size==cart.size})
+          if(b.length!=0){
+            this.cartService.getProductById(b[0].id, userDetails.userId).subscribe(data=>{
+              let updatedCart:ICart={
+                productId:this.id,
+                name:data.name,
+                price:data.price,
+                brand:data.brand,
+                size:this.size,
+                quantity:data.quantity+1,
+                description:data.description,
+                image:data.image
+              }
+              this.cartService.editProduct(updatedCart,b[0].id,userDetails.userId).subscribe(data=>{
+              })
+            })
+          }
+          else{
+            this.cartService.addProductToCart(cart,userDetails.userId).subscribe(product=>{
+            })
+          }
+         }
+         else
+         {
+          this.cartService.addProductToCart(cart,userDetails.userId).subscribe(product=>{
+          })
+         }
+      }
+    }) 
   }
   onBuyNowClicked(){
     this.router.navigate(['payments']);
+  }
+  onSizeChange(event:any){
+    this.size=event.target.value;
+    this.isDisabled=false;
+    this.isSizeError=false;
   }
 }

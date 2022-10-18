@@ -11,15 +11,12 @@ import { SearchService } from '../search.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnChanges{
+export class HeaderComponent implements OnInit{
   isLogIn!:boolean;
   filteredString:string="";
   count:number=0;
   constructor(private authService:AuthService, private router:Router,private productService:ProductService, private cartService:CartService, private searchService:SearchService) {
    }
-  ngOnChanges(): void {
-    console.log("hello");
-  }
   ngOnInit(): void {
     let userDetailsJSON=localStorage.getItem("userDetails");
     let userDetails!: IUser;

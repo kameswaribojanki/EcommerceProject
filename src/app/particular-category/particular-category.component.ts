@@ -16,7 +16,7 @@ import { WishListService } from '../wishList.service';
   styleUrls: ['./particular-category.component.css']
 })
 export class ParticularCategoryComponent implements OnInit {
-  heartColor='green';
+  heartColor='lightgray';
   categories:ICategory[]=[];
   products:IProduct[]=[];
   wishList:IProduct[]=[];
@@ -28,6 +28,7 @@ export class ParticularCategoryComponent implements OnInit {
   subCategories:ISubCategory[]=[];
   searchText:string="";
   userId:string='';
+  addedToWishList:boolean=false;
   constructor(private categoryService:CategoryService,private router:Router, private route:ActivatedRoute, private subCategoryService:SubCategoryService, private productService:ProductService, private searchService:SearchService, private wishListService:WishListService) { }
   id=this.route.snapshot.params['id'];
   categoryName:string="";
@@ -63,7 +64,6 @@ export class ParticularCategoryComponent implements OnInit {
   }
   onCategoryChange(event:Event,categoryId: string){
     this.selectedCategoryId=(event.target as HTMLSelectElement).value;
-    console.log(this.selectedCategoryId);
     this.productService.getProducts().subscribe(data=>{
       this.filteredProducts=data.filter((p)=>{return p.category==this.selectedCategoryId})
     })
@@ -102,17 +102,62 @@ export class ParticularCategoryComponent implements OnInit {
     this.router.navigate([id,"product"]);
   }
   onLikeClicked(id:any){
-    // if(id==this.id){
-    //   this.heartColor='red';
-    // }
-    // this.heartColor='red';
+    this.addedToWishList=!this.addedToWishList;
+    if(this.addedToWishList==true){
+      this.heartColor='red';
+    }
+    else{
+      this.heartColor='lightgray';
+    }
+    let userDetailsJSON=localStorage.getItem("userDetails");
+    let userDetails!: IUser;
+    if (userDetailsJSON) userDetails = JSON.parse(userDetailsJSON);
+    this.userId = userDetails.userId;
+    this.wishListService.getWishList(this.userId).subscribe(wishList=>{
+      if(wishList.length==0){
+        this.productService.getProductById(id).subscribe(product=>{
+          let product1={...product,id:id}
+          this.wishListService.addWishList(product1,this.userId).subscribe(data=>{
+          })
+        })
+      }
+      else{
+        const a=wishList.filter(data=>{return data.id==id})
+        if(a.length!=0){
+          alert("product is already added to wishlist");
+        }
+        else{
+          this.productService.getProductById(id).subscribe(product=>{
+            let product1={...product,id:id}
+            this.wishListService.addWishList(product1,this.userId).subscribe(data=>{
+            })
+          })
+        }
+      }
+    })
+  }
+  handleAddToWishList(id:any){
+    this.addedToWishList=true;
     let userDetailsJSON=localStorage.getItem("userDetails");
     let userDetails!: IUser;
     if (userDetailsJSON) userDetails = JSON.parse(userDetailsJSON);
     this.userId = userDetails.userId;
     this.productService.getProductById(id).subscribe(data=>{
       this.wishListService.addWishList(data,this.userId).subscribe(data=>{
-
+        
+        console.log(this.addedToWishList);
+      })
+    })
+  }
+  handleRemoveFromList(id:any){
+    let userDetailsJSON=localStorage.getItem("userDetails");
+    let userDetails!: IUser;
+    if (userDetailsJSON) userDetails = JSON.parse(userDetailsJSON);
+    this.userId = userDetails.userId;
+    this.productService.getProductById(id).subscribe(data=>{
+      this.wishListService.deleteWishList(id,this.userId).subscribe(data=>{
+        this.addedToWishList=false;
+        console.log(this.addedToWishList);
       })
     })
   }

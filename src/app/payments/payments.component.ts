@@ -23,6 +23,8 @@ export class PaymentsComponent implements OnInit {
   userId:string='';
   paymentDetails:IUserPayment[]=[];
   address:string='';
+  showDisabledStatus:boolean=true;
+  value:boolean=true;
   constructor(private userService:UserService, private cartService:CartService, private paymentService:PaymentService, private orerService:OrderService) { }
 
   ngOnInit(): void {
@@ -40,14 +42,22 @@ export class PaymentsComponent implements OnInit {
     this.cartService.getProducts(this.userId).subscribe(data=>{
       this.cartDetails=data;
       for(let i=0;i<data.length;i++){
-        this.grandTotal+=Number(data[i].quantity)*Number(data[i].price)+10;
+        this.grandTotal+=Number(data[i].quantity)*Number(data[i].price);
       }
     })
   }
   onPaymentModeChange(event:any){
     let selectedValue=event.target.value;
-    console.log(selectedValue);
     this.selectedType=selectedValue;
+    if(selectedValue){
+      this.showDisabledStatus=false;
+    }
+  }
+  onSubPaymentModeChange(event:any){
+    let selectedValue=event.target.value;
+    this.selectedType=selectedValue;
+    if(this.selectedType=='')
+    this.value=false;
   }
   incrementCount(product:ICart){
     if(product.quantity!=5){
@@ -90,8 +100,9 @@ export class PaymentsComponent implements OnInit {
     let payment:IUserPayment={
       paymentType:this.selectedType,
       dateOfPayment:new Date(),
-      amount:this.grandTotal
+      amount:this.grandTotal+(this.cartDetails.length*10)
     }
+    console.log(payment.amount);
     this.paymentService.addPaymentDetails(payment, this.userId).subscribe(data=>{
 
     })

@@ -29,8 +29,19 @@ export class CartService{
               return formattedProducts;
         }))
     }
-    getProductById(id:string){
-      return this.http.get<ICart>(`${this.baseUrl}/cart/${id}.json`);
+    getAllProducts():Observable<ICart[]>{
+      return this.http.get<{[id:string]:ICart}[]>(`${this.baseUrl}cart.json`).pipe(map(products=>{
+          let formattedProducts:ICart[]=[];
+          for (let id in products) {
+            for(let cart in products[id]){
+              formattedProducts.push({ cart, ...products[id][cart] } as ICart);
+            }  
+            }
+            return formattedProducts;
+      }))
+  }
+    getProductById(id:string,userId:string){
+      return this.http.get<ICart>(`${this.baseUrl}/cart/${userId}/${id}.json`);
     }
     editProduct(product:ICart,id:string, userId:string){
       return this.http.put(`${this.baseUrl}cart/${userId}/${id}.json`,product);

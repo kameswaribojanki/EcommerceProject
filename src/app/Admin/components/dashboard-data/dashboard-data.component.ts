@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { IUser } from 'src/app/Auth/models/IUser';
 import { CategoryService } from 'src/app/categories/services/category.service';
+import { OrderService } from 'src/app/order.service';
 import { ProductService } from 'src/app/products/services/product.service';
 import { UserService } from 'src/app/users/services/user.service';
 
@@ -12,23 +14,21 @@ export class DashboardDataComponent implements OnInit {
   pcount=0;
   ccount=0;
   ucount=0;
-  constructor(private productService:ProductService, private categoryService:CategoryService, private userService:UserService) { }
+  ocount=0;
+  constructor(private productService:ProductService, private categoryService:CategoryService, private userService:UserService, private orderService:OrderService) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe(data=>{
-      for(let i=0;i<data.length;i++){
-        this.pcount++
-      }
+      this.pcount=data.length;
     })
     this.categoryService.getCategories().subscribe(data=>{
-      for(let i=0;i<data.length;i++){
-        this.ccount++
-      }
+      this.ccount=data.length;
     })
     this.userService.getUsers().subscribe(data=>{
-      for(let i=0;i<data.length;i++){
-        this.ucount++
-      }
+      this.ucount=data.length;
+    })
+    this.orderService.getAllOrders().subscribe(data=>{
+      this.ocount=data.length;
     })
   }
 

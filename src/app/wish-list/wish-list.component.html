@@ -1,21 +1,21 @@
-<div class="container-fluid p-5">
+<div class="container-fluid my-3">
     <div class="row" *ngIf="wishList.length!=0">
-        <div class="col-md-10 cart-details mx-5">
+        <div class="col-md-10 col-sm-12 col-xs-12 cart-details">
             <div class="border-bottom p-3">
                 <h2>My Wishlist({{wishList.length}})</h2>
             </div>
             <div *ngFor="let product of wishList" class="d-flex border-bottom align-items-center justify-content-between">
-                <div class="p-5">
+                <div class="p-3">
                     <div>
-                        <img src="{{product.image}}">
+                        <img src="{{product.image}}" (click)="onWishListImageClicked(product.id)" class="cursor">
                     </div>
                 </div>
-                <div class="p-5">
+                <div class="p-3">
                     <p>{{product.productName}} {{product.description}}</p>
                     <p><i class="fa-solid fa-indian-rupee-sign"></i>{{product.price}}</p>
                 </div>
-                <div class="p-5">
-                    <i class="fa-solid fa-trash" (click)="deleteFromWishList(product.id)"></i>
+                <div class="p-3">
+                    <i class="fa-solid fa-trash cursor" (click)="deleteFromWishList(product.id)"></i>
                 </div>
             </div>
             <div class="text-end my-3 pe-5">   

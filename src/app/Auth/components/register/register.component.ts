@@ -76,7 +76,6 @@ export class RegisterComponent implements OnInit {
     const password=this.registerForm.value.password;
     if(email && password){
       this.authService.register(email,password).subscribe(data=>{
-        //this.authService.logInEvent.emit(true);
         this.router.navigate(['login']);
       })
     }

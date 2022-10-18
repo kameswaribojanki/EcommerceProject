@@ -30,16 +30,16 @@ export class WishListService{
               return formattedwishLists;
         }))
     }
-    getWishListById(id:string){
-        return this.http.get<IProduct>(`${this.baseUrl}/wishList/${id}.json`);
+    getWishListById(id:string, userId:string){
+        return this.http.get<IProduct>(`${this.baseUrl}/wishList/${userId}/${id}.json`);
       }
-      editWishList(wishList:IProduct,id:string,userId:string){
-        return this.http.put(`${this.baseUrl}wishList/${userId}/${id}.json`,wishList);
-      }
-      deleteWishList(id:string,userId:string){
-        return this.http.delete(`${this.baseUrl}/wishList/${userId}/${id}.json`);
-      }
-      deleteAll(){
-        return this.http.delete(`${this.baseUrl}/wishList.json`);
-      }
+    editWishList(wishList:IProduct,id:string,userId:string){
+      return this.http.put(`${this.baseUrl}wishList/${userId}/${id}.json`,wishList);
+    }
+    deleteWishList(id:string,userId:string){
+      return this.http.delete(`${this.baseUrl}/wishList/${userId}/${id}.json`);
+    }
+    deleteAll(){
+      return this.http.delete(`${this.baseUrl}/wishList.json`);
+    }
 }

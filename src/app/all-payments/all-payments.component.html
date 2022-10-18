@@ -1,10 +1,10 @@
 <div class="container-fluid my-3">
-    <div class="row" *ngIf="payments.length!=0">
+    <div class="row" *ngIf="allPayments.length!=0">
         <div class="col-md-10 col-sm-12 col-xs-12 payment-details">
             <div class="border-bottom p-3">
-                <h2>My Payments({{payments.length}})</h2>
+                <h2>All Payments({{allPayments.length}})</h2>
             </div>
-            <div *ngFor="let payment of payments" class="d-flex border-bottom align-items-center justify-content-between">
+            <div *ngFor="let payment of allPayments" class="d-flex border-bottom align-items-center justify-content-between">
                 <div class="p-3">
                     <div>
                         <p>{{payment.paymentType}}</p>
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="row">
-        <div *ngIf="payments.length==0">
+        <div *ngIf="allPayments.length==0">
             <div class="d-flex align-items-center justify-content-center p-5">
                 <div class="box">
                     my orders are empty

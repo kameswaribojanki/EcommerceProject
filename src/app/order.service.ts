@@ -26,9 +26,11 @@ export class OrderService {
     return this.http.get<{[id:string]:IUserOrder}[]>(`${this.baseUrl}Orders/.json`).pipe(map(orders=>{
         let formattedOrders:IUserOrder[]=[];
         for (let id in orders) {
-          formattedOrders.push({ id, ...orders[id] } as IUserOrder);
+          for(let order in orders[id]){
+            formattedOrders.push({ order, ...orders[id][order]} as IUserOrder);
           }
-          return formattedOrders;
+        }
+        return formattedOrders;
     }))
   }
 }

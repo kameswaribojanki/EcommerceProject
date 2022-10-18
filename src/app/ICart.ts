@@ -5,6 +5,7 @@ export interface ICart{
     price:number;
     quantity:number;
     brand:string;
+    size:string;
     description:string;
     image:string;
 }

@@ -37,17 +37,21 @@ export class CartComponent implements OnInit {
     })
   }
   onRemoveAllClick(){
-    this.cartService.deleteAll().subscribe(data=>{
-      this.cartService.setProductChange(true);
-    })
+    if(confirm("are you sure to delete all products from cart")){
+      this.cartService.deleteAll().subscribe(data=>{
+        this.cartService.setProductChange(true);
+      })
+    }
   }
   deleteFromCart(product:any){
-    this.cartService.deleteProduct(product,this.userId).subscribe(data=>{
-      this.cartService.setProductChange(true);
-    })
+    if(confirm("are you sure to delete product from cart")){
+      this.cartService.deleteProduct(product,this.userId).subscribe(data=>{
+        this.cartService.setProductChange(true);
+      })
+    }
   }
   incrementCount(product:ICart){
-    if(product.quantity!=5){
+    if(product.quantity!=100){
       product.quantity=product.quantity+1;
       this.cartService.editProduct(product,product.id,this.userId).subscribe(data=>{
         this.cartService.getProducts(this.userId).subscribe(data=>{
@@ -80,5 +84,8 @@ export class CartComponent implements OnInit {
   }
   onPlaceOrderClicked(){
     this.router.navigate(['payments']);
+  }
+  onCartImageClick(id:any){
+    this.router.navigate([id,"product"])
   }
 }

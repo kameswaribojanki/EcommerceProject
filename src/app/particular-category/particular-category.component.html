@@ -37,7 +37,16 @@
                         <p class="card-text">{{product.productName}}</p>
                         </div>
                         <div>
+                            <!-- <ng-container *ngIf="addedToWishList; else elseBlock">
+                                <i class="fas fa-heart" (click)="handleRemoveFromList(product.id)"></i>
+                            </ng-container>
+                            <ng-template #elseBlock>
+                                <i class="far fa-heart" (click)="handleAddToWishList(product.id)"></i>
+                            </ng-template> -->
                         <i class="fa-solid fa-heart fs-2" [ngStyle]="{'color':heartColor}" (click)="onLikeClicked(product.id)"></i>
+                        
+                        <!-- <i *ngIf="addedToWishList" class="fa-solid fa-heart" (click)="handleAddToWishList(product.id)"></i>
+                        <i *ngIf="!addedToWishList" class="fa-regular fa-heart" (click)="handleRemoveFromList(product.id)"></i> -->
                         </div>
                     </div>
                     <img class="card-img-top" src="{{product.image}}" alt="Card image cap" (click)="onProductImageClicked(product.id)">  

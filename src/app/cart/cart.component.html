@@ -1,13 +1,13 @@
-<div class="container-fluid p-5">
+<div class="container-fluid">
     <div class="row" *ngIf="cartDetails.length!=0">
-        <div class="col-md-7 cart-details mx-5">
+        <div class="col-md-7 col-sm-12 col-xs-12 cart-details my-3">
             <div class="border-bottom p-3">
                 <h2>Cart({{cartDetails.length}} items)</h2>
             </div>
             <div *ngFor="let product of cartDetails" class="d-flex border-bottom align-items-center">
                 <div class="p-3">
                     <div>
-                        <img src="{{product.image}}">
+                        <img src="{{product.image}}" (click)="onCartImageClick(product.productId)" class="cursor">
                     </div>
                     <div class="py-3">
                         <button type="button" class="btn btn-sm incbtn" (click)="decrementCount(product)"><i class="fa-solid fa-minus"></i></button>
@@ -18,6 +18,7 @@
                 <div class="px-5">
                     <p>{{product.name}} {{product.description}}</p>
                     <p><i class="fa-solid fa-indian-rupee-sign"></i>{{product.price}}</p>
+                    <p>{{product.size}}</p>
                     <div (click)="deleteFromCart(product.id)" class="text-danger"><i class="fa-solid fa-trash"></i>Remove</div>
                 </div>
             </div>
@@ -25,7 +26,7 @@
                 <button class="btn btn-primary" (click)="onRemoveAllClick()">Remove All</button>
             </div>
         </div>
-        <div class="col-md-3 cart-price-details set-position">
+        <div class="col-md-3 col-sm-12 col-xs-12 cart-price-details set-position mx-md-5 my-3">
             <div class="border-bottom p-3">
                 <h4>PRICE DETAILS</h4>
             </div>

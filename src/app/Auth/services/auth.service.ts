@@ -31,7 +31,7 @@ export class AuthService{
     register(email:string, password:string):Observable<IUser>{
         return this.http.post<IUser>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`,{email,password, returnSecureToken:true}).pipe(tap(data=>{
             this.userDetails=data;
-            this.saveDataInLocalStorage();
+            // this.saveDataInLocalStorage();
         }))
     }
     saveDataInLocalStorage(){

@@ -1,8 +1,36 @@
-<div class="container-fluid">
+<div class="container-fluid my-3">
+    <div class="row" *ngIf="allOrders.length!=0">
+        <div class="col-md-10 col-sm-12 col-xs-12 order-details">
+            <div class="border-bottom p-3">
+                <h2>All Orders({{allOrders.length}})</h2>
+            </div>
+            <div *ngFor="let order of allOrders" class="d-flex border-bottom align-items-center justify-content-between">
+                <div class="p-3">
+                    <div>
+                        <img src="{{order.image}}">
+                    </div>
+                </div>
+                <div class="p-3">
+                    <p>{{order.productName}}</p>
+                </div>
+                <div class="p-3">
+                    <p>Delivered Address: {{order.address}}</p>
+                </div>
+                <div class="p-3">
+                    <p>{{order.dateOfOrder}}</p>
+                </div>
+                <div class="p-3">
+                    <p><i class="fa-solid fa-indian-rupee-sign"></i>{{order.totalAmount}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
-        <div class="col-md-12">
-            <div *ngFor="let order of allOrders">
-                helloo
+        <div *ngIf="allOrders.length==0">
+            <div class="d-flex align-items-center justify-content-center p-5">
+                <div class="box">
+                    my orders are empty
+                </div> 
             </div>
         </div>
     </div>
