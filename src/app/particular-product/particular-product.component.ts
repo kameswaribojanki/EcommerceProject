@@ -48,10 +48,7 @@ export class ParticularProductComponent implements OnInit {
         })
       }
       else{
-        console.log(data);
-        console.log(cart.productId)
          const a =  data.filter(data=>{return data.productId==cart.productId})
-         console.log(a);
          if(a.length!=0)
          {
           const b=a.filter(data=>{return data.size==cart.size})
@@ -85,7 +82,8 @@ export class ParticularProductComponent implements OnInit {
     }) 
   }
   onBuyNowClicked(){
-    this.router.navigate(['payments']);
+    this.addToCart();
+    this.router.navigate(['payments',this.id]);
   }
   onSizeChange(event:any){
     this.size=event.target.value;

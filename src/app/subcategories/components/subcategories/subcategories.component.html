@@ -16,7 +16,7 @@
                     <th>categoryName</th>
                     <th>Type</th>
                     <th>Status</th>
-                    <th>Date</th>
+                    <th>Subcategory Added Date</th>
                     <th>Description</th>
                     <th>Actions</th>
                 </tr>
@@ -28,7 +28,7 @@
                     <td>{{subCategory.categoryName}}</td>
                     <td>{{subCategory.type}}</td>
                     <td>{{subCategory.status}}</td>
-                    <td>{{subCategory.date}}</td>
+                    <td>{{subCategory.date | date}}</td>
                     <td>{{subCategory.description}}</td>
                     <td class="d-flex">
                         <a class="btn btn-warning btn-sm mx-3" [routerLink]="[subCategory.id,'edit']">Edit</a>

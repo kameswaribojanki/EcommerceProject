@@ -17,6 +17,7 @@ export class CartComponent implements OnInit {
   cartDetails!:ICart[];
   grandTotal:number=0;
   userId:string='';
+  productId:string="";
   constructor(private route:ActivatedRoute, private productService:ProductService,private cartService:CartService, private authService:AuthService, private router:Router) { }
   id=this.route.snapshot.params['id'];
   ngOnInit(): void {
@@ -50,40 +51,30 @@ export class CartComponent implements OnInit {
       })
     }
   }
-  incrementCount(product:ICart){
-    if(product.quantity!=100){
+  incrementCount(product: ICart) {
+    if(product.quantity!=10){
       product.quantity=product.quantity+1;
       this.cartService.editProduct(product,product.id,this.userId).subscribe(data=>{
-        this.cartService.getProducts(this.userId).subscribe(data=>{
-          this.cartDetails=data;
-          this.cartService.setProductChange(true);
-          for(let i=0;i<data.length;i++){
-            if(data[i].id==product.id){
-              this.grandTotal=this.grandTotal+Number(data[i].price);
-            }
-          }
-        })
       })
     }
   }
-  decrementCount(product:ICart){
+  decrementCount(product: ICart) {
     if(product.quantity!=1){
       product.quantity=product.quantity-1;
       this.cartService.editProduct(product,product.id,this.userId).subscribe(data=>{
-        this.cartService.getProducts(this.userId).subscribe(data=>{
-          this.cartDetails=data;
-          this.cartService.setProductChange(true);
-          for(let i=0;i<data.length;i++){
-            if(data[i].id==product.id){
-              this.grandTotal=this.grandTotal-Number(data[i].price);
-            }
-          }
-        })
       })
     }
   }
+  getGrandTotal(carts: ICart[]) {
+    let grandTotal = 0;
+    carts.forEach((product) => {
+      let total = product.quantity * product.price;
+      grandTotal += total;
+    });
+    return grandTotal;
+  }
   onPlaceOrderClicked(){
-    this.router.navigate(['payments']);
+    this.router.navigate(['payments',this.productId]);
   }
   onCartImageClick(id:any){
     this.router.navigate([id,"product"])

@@ -8,6 +8,7 @@ import { IUserPayment } from '../IUserPayment';
 import { PaymentService } from '../payment.service';
 import { IUserOrder } from '../IUserOrder';
 import { OrderService } from '../order.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-payments',
@@ -19,15 +20,18 @@ export class PaymentsComponent implements OnInit {
   users:IUserDetails[]=[];
   cartDetails:ICart[]=[];
   phoneNumber:string="";
-  grandTotal:number=0;
+  // grandTotal:number=0;
   userId:string='';
   paymentDetails:IUserPayment[]=[];
   address:string='';
   showDisabledStatus:boolean=true;
   value:boolean=true;
-  constructor(private userService:UserService, private cartService:CartService, private paymentService:PaymentService, private orerService:OrderService) { }
+  productId:string="";
+  constructor(private userService:UserService, private cartService:CartService, private paymentService:PaymentService, private orerService:OrderService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.productId=this.route.snapshot.params['productId'];
+    console.log(this.productId);
     let userDetailsJSON=localStorage.getItem("userDetails");
     let userDetails!: IUser;
     if (userDetailsJSON) userDetails = JSON.parse(userDetailsJSON);
@@ -39,12 +43,17 @@ export class PaymentsComponent implements OnInit {
     this.cartService.getProducts(this.userId).subscribe(data=>{
       this.cartDetails=data;
     })
-    this.cartService.getProducts(this.userId).subscribe(data=>{
-      this.cartDetails=data;
-      for(let i=0;i<data.length;i++){
-        this.grandTotal+=Number(data[i].quantity)*Number(data[i].price);
-      }
-    })
+    // this.cartService.getProducts(this.userId).subscribe(data=>{
+    //   this.cartDetails=data;
+    //   for(let i=0;i<data.length;i++){
+    //     this.grandTotal+=Number(data[i].quantity)*Number(data[i].price);
+    //   }
+    // })
+    if(this.productId){
+      this.cartService.getProducts(this.userId).subscribe(data=>{
+        this.cartDetails=data.filter((p)=>{return p.productId===this.productId});
+      })
+    }
   }
   onPaymentModeChange(event:any){
     let selectedValue=event.target.value;
@@ -59,37 +68,27 @@ export class PaymentsComponent implements OnInit {
     if(this.selectedType=='')
     this.value=false;
   }
-  incrementCount(product:ICart){
-    if(product.quantity!=5){
+  incrementCount(product: ICart) {
+    if(product.quantity!=10){
       product.quantity=product.quantity+1;
       this.cartService.editProduct(product,product.id,this.userId).subscribe(data=>{
-        this.cartService.getProducts(this.userId).subscribe(data=>{
-          this.cartDetails=data;
-          this.cartService.setProductChange(true);
-          for(let i=0;i<data.length;i++){
-            if(data[i].id==product.id){
-              this.grandTotal=this.grandTotal+Number(data[i].price);
-            }
-          }
-        })
       })
     }
   }
-  decrementCount(product:ICart){
+  decrementCount(product: ICart) {
     if(product.quantity!=1){
       product.quantity=product.quantity-1;
       this.cartService.editProduct(product,product.id,this.userId).subscribe(data=>{
-        this.cartService.getProducts(this.userId).subscribe(data=>{
-          this.cartDetails=data;
-          this.cartService.setProductChange(true);
-          for(let i=0;i<data.length;i++){
-            if(data[i].id==product.id){
-              this.grandTotal=this.grandTotal-Number(data[i].price);
-            }
-          }
-        })
       })
     }
+  }
+  getGrandTotal(carts: ICart[]) {
+    let grandTotal = 0;
+    carts.forEach((product) => {
+      let total = product.quantity * product.price;
+      grandTotal += total;
+    });
+    return grandTotal;
   }
   deleteFromCart(product:any){
     this.cartService.deleteProduct(product,this.userId).subscribe(data=>{
@@ -100,9 +99,8 @@ export class PaymentsComponent implements OnInit {
     let payment:IUserPayment={
       paymentType:this.selectedType,
       dateOfPayment:new Date(),
-      amount:this.grandTotal+(this.cartDetails.length*10)
+      amount:this.getGrandTotal(this.cartDetails)+(this.cartDetails.length*10)
     }
-    console.log(payment.amount);
     this.paymentService.addPaymentDetails(payment, this.userId).subscribe(data=>{
 
     })

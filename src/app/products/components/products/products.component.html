@@ -24,7 +24,7 @@
                     <th>SubCategory</th>
                     <th>Status</th>
                     <th>Quantity</th>
-                    <th>Date</th>
+                    <th>Product Added Date</th>
                     <th>Description</th>
                     <th>Actions</th>
                 </tr>
@@ -43,7 +43,7 @@
                     <td>{{product.subCategory}}</td>
                     <td>{{product.status}}</td>
                     <td>{{product.quantity}}</td>
-                    <td>{{product.date}}</td>
+                    <td>{{product.date | date}}</td>
                     <td>{{product.description}}</td>
                     <td class="d-flex">
                         <a class="btn btn-warning btn-sm mx-3" [routerLink]="[product.id,'edit']">Edit</a>
